@@ -24,17 +24,27 @@ var students = {
       }
     }
   },
-  teacher_id:{
-    type:Sequelize.INTEGER,
-    allowNull: false
+  email:{
+    type:Sequelize.STRING,
+    allowNull: false,
+    validate:{
+      notEmpty: true,
+      len: {
+        args: [1,255],
+        msg: 'Please enter a valid email',
+      }
+    }
   },
-  TA1:{
-    type:Sequelize.INTEGER,
-    allowNull: true
-  },
-  TA2:{
-    type:Sequelize.INTEGER,
-    allowNull: true
+  password:{
+    type:Sequelize.STRING,
+    allowNull: false,
+    validate:{
+      notEmpty: true,
+      len: {
+        args: [1,255],
+        msg: 'Please enter a password',
+      }
+    }
   }
 }
 
@@ -61,11 +71,30 @@ var teachers = {
         msg: 'Please enter a last name between 1 and 40 characters long',
       }
     }
+  },
+  email:{
+    type:Sequelize.STRING,
+    allowNull: false,
+    validate:{
+      notEmpty: true,
+      len: {
+        args: [1,255],
+        msg: 'Please enter a valid email',
+      }
+    }
+  },
+  password:{
+    type:Sequelize.STRING,
+    allowNull: false,
+    validate:{
+      notEmpty: true,
+      len: {
+        args: [1,255],
+        msg: 'Please enter a password',
+      }
+    }
   }
 }
 
 exports.students = students;
 exports.teachers = teachers;
-
-
-
