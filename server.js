@@ -13,6 +13,7 @@ var classStructure = require('./models/class_structure.js');
 
 var app = express();
 
+// Middleware
 app.engine('handlebars', handles({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
