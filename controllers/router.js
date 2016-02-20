@@ -5,6 +5,10 @@ router.get('/', function(req, res){
   res.render('index');
 });
 
+router.get('/login', function(req, res){
+  res.render('login');
+});
+
 // TODO login, register, student and teacher routes
 
 module.exports = router;
