@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({
 
 // TABLE CREATE
 connection.define('students', classStructure.students);
+connection.define('teachers', classStructure.teachers);
 
 connection.sync().then(function() {
   app.listen(PORT, function() {
