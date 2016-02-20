@@ -20,6 +20,10 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+// Routing
+var routes = require('./controllers/router.js');
+app.use('/', routes);
+
 // TABLE CREATE
 var Students = connection.define('students', classStructure.students);
 var Teachers = connection.define('teachers', classStructure.teachers);
