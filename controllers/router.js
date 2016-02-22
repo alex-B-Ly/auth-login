@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 
-// TODO Import Students and Teachers tables from models
+// Students and Teachers tables import
+var classStructure = require('../models/class_structure.js');
 
+// ROUTES
 router.get('/', function(req, res){
   res.render('index');
 });
@@ -20,18 +22,24 @@ router.get('/register_success', function(req, res){
   res.render('register_success');
 });
 
-router.post('/register', function(req, res){
+router.post('/student_register', function(req, res){
   var password = req.body.password;
   var passConfirm = req.body.passwordconfirm;
 
   if(password !== passConfirm){
     res.redirect('/create_account/?msg=Your password entries don\'t match.');
   }else{
-    // TODO create entry in db
-    // TODO Figure out logic to enable registration as student or teacher
-    res.redirect('/register_success');
+    // TODO Figure out logic to enable registration as student or teacher (maybe change action using on front end)
+    classStructure.Students.create(req.body).then(function(result){
+      res.redirect('/register_success');
+    }).catch(function(err) {
+      console.log(err);
+      res.redirect('/create_account/?msg=' + err.errors[0].message);
+    });
   }
 });
+
+// TODO Teacher register route similar to above
 
 // TODO login, register, student and teacher routes
 

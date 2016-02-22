@@ -43,8 +43,8 @@ var students = {
     validate:{
       notEmpty: true,
       len: {
-        args: [1,255],
-        msg: 'Please enter a password',
+        args: [8,255],
+        msg: 'Please enter a password between 8 and 255 characters long',
       }
     }
   }
@@ -92,8 +92,8 @@ var teachers = {
     validate:{
       notEmpty: true,
       len: {
-        args: [1,255],
-        msg: 'Please enter a password',
+        args: [8,255],
+        msg: 'Please enter a password between 8 and 255 characters long',
       }
     }
   }
@@ -103,3 +103,5 @@ var teachers = {
 var Students = connection.define('students', students);
 var Teachers = connection.define('teachers', teachers);
 
+exports.Students = Students;
+exports.Teachers = Teachers;
