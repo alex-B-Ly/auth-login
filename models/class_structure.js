@@ -28,6 +28,7 @@ var students = {
   email:{
     type:Sequelize.STRING,
     allowNull: false,
+    unique: true,
     validate:{
       notEmpty: true,
       len: {
@@ -42,8 +43,8 @@ var students = {
     validate:{
       notEmpty: true,
       len: {
-        args: [1,255],
-        msg: 'Please enter a password',
+        args: [8,255],
+        msg: 'Please enter a password between 8 and 255 characters long',
       }
     }
   }
@@ -76,6 +77,7 @@ var teachers = {
   email:{
     type:Sequelize.STRING,
     allowNull: false,
+    unique: true,
     validate:{
       notEmpty: true,
       len: {
@@ -90,8 +92,8 @@ var teachers = {
     validate:{
       notEmpty: true,
       len: {
-        args: [1,255],
-        msg: 'Please enter a password',
+        args: [8,255],
+        msg: 'Please enter a password between 8 and 255 characters long',
       }
     }
   }
@@ -101,3 +103,5 @@ var teachers = {
 var Students = connection.define('students', students);
 var Teachers = connection.define('teachers', teachers);
 
+exports.Students = Students;
+exports.Teachers = Teachers;
