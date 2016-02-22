@@ -21,15 +21,14 @@ router.get('/register_success', function(req, res){
 });
 
 router.post('/register', function(req, res){
-  var fName = req.body.f_name;
-  var lName = req.body.l_name;
-  var email = req.body.email;
   var password = req.body.password;
   var passConfirm = req.body.passwordconfirm;
 
   if(password !== passConfirm){
     res.redirect('/create_account/?msg=Your password entries don\'t match.');
   }else{
+    // TODO create entry in db
+    // TODO Figure out logic to enable registration as student or teacher
     res.redirect('/register_success');
   }
 });
