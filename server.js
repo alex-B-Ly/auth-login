@@ -5,7 +5,6 @@ var mysql = require('mysql');
 var PORT = process.env.NODE_ENV || 8080;
 
 // CONNECTION
-var Sequelize = require('sequelize');
 var connection = require('./config/connection.js');
 
 // Models import
@@ -24,10 +23,6 @@ app.use(bodyParser.urlencoded({
 // Routing
 var routes = require('./controllers/router.js');
 app.use('/', routes);
-
-// TABLE CREATE
-var Students = connection.define('students', classStructure.students);
-var Teachers = connection.define('teachers', classStructure.teachers);
 
 connection.sync().then(function() {
   app.listen(PORT, function() {

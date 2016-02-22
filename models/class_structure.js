@@ -1,4 +1,5 @@
 var Sequelize = require('sequelize');
+var connection = require('../config/connection.js');
 
 // STUDENTS TABLE KEYS
 var students = {
@@ -96,5 +97,7 @@ var teachers = {
   }
 }
 
-exports.students = students;
-exports.teachers = teachers;
+// TABLE CREATE
+var Students = connection.define('students', students);
+var Teachers = connection.define('teachers', teachers);
+
