@@ -28,6 +28,7 @@ var students = {
   email:{
     type:Sequelize.STRING,
     allowNull: false,
+    unique: true,
     validate:{
       notEmpty: true,
       len: {
@@ -76,6 +77,7 @@ var teachers = {
   email:{
     type:Sequelize.STRING,
     allowNull: false,
+    unique: true,
     validate:{
       notEmpty: true,
       len: {
