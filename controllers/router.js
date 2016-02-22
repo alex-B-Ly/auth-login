@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
 
 // Students and Teachers tables import
 var classStructure = require('../models/class_structure.js');
