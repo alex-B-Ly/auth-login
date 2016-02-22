@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 
+// TODO Import Students and Teachers tables from models
+
 router.get('/', function(req, res){
   res.render('index');
 });
@@ -11,7 +13,7 @@ router.get('/login', function(req, res){
 });
 
 router.get('/create_account', function(req, res){
-  res.render('register');
+  res.render('register', {msg:req.query.msg});
 });
 
 router.get('/register_success', function(req, res){
@@ -25,7 +27,11 @@ router.post('/register', function(req, res){
   var password = req.body.password;
   var passConfirm = req.body.passwordconfirm;
 
-  res.redirect('/register_success');
+  if(password !== passConfirm){
+    res.redirect('/create_account/?msg=Your password entries don\'t match.');
+  }else{
+    res.redirect('/register_success');
+  }
 });
 
 // TODO login, register, student and teacher routes
