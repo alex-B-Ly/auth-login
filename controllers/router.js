@@ -9,6 +9,10 @@ router.get('/login', function(req, res){
   res.render('login');
 });
 
+router.get('/register', function(req, res){
+  res.render('register');
+});
+
 // TODO login, register, student and teacher routes
 
 module.exports = router;
