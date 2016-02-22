@@ -20,6 +20,11 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+// MIDDLEWARE - public
+app.use('/css', express.static('public/css'));
+app.use('/js', express.static('public/js'));
+app.use('/img', express.static('public/img'));
+
 // Routing
 var routes = require('./controllers/router.js');
 app.use('/', routes);
