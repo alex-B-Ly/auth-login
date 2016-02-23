@@ -57,6 +57,7 @@ router.post('/teacher_register', function(req, res){
   }
 });
 
-// TODO login, register, student and teacher routes
+// LOGIN ROUTES
+
 
 module.exports = router;
