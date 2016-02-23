@@ -74,6 +74,12 @@ var teachers = {
       }
     }
   },
+  instructor:{
+    type:Sequelize.BOOLEAN
+  },
+  TA:{
+    type:Sequelize.BOOLEAN
+  },
   email:{
     type:Sequelize.STRING,
     allowNull: false,
