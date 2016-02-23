@@ -132,7 +132,7 @@ router.post('/logincheck', passport.authenticate('local-login',{
     failureRedirect: '/login'
 }));
 
-router.post('/teacherlogincheck', passport.authenticate('local-login',{
+router.post('/teacherlogincheck', passport.authenticate('teacher-local-login',{
     successRedirect: '/teacher',
     failureRedirect: '/login'
 }));
