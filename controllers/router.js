@@ -4,7 +4,7 @@ var router = express.Router();
 // Students and Teachers tables import
 var classStructure = require('../models/class_structure.js');
 
-// ROUTES
+// GET ROUTES
 router.get('/', function(req, res){
   res.render('index');
 });
@@ -21,6 +21,8 @@ router.get('/register_success', function(req, res){
   res.render('register_success');
 });
 
+// POST ROUTES
+
 router.post('/student_register', function(req, res){
   var password = req.body.password;
   var passConfirm = req.body.passwordconfirm;
@@ -30,6 +32,24 @@ router.post('/student_register', function(req, res){
   }else{
     // TODO Figure out logic to enable registration as student or teacher (maybe change action using on front end)
     classStructure.Students.create(req.body).then(function(result){
+      res.redirect('/register_success');
+    }).catch(function(err) {
+      console.log(err);
+      res.redirect('/create_account/?msg=' + err.errors[0].message);
+    });
+  }
+});
+
+router.post('/teacher_register', function(req, res){
+  var password = req.body.password;
+  var passConfirm = req.body.passwordconfirm;
+
+  if(password !== passConfirm){
+    res.redirect('/create_account/?msg=Your password entries don\'t match.');
+  }else if(!req.body.instructor && !req.body.TA){
+    res.redirect('/create_account/?msg=You must choose a role.');
+  }else{
+    classStructure.Teachers.create(req.body).then(function(result){
       res.redirect('/register_success');
     }).catch(function(err) {
       console.log(err);

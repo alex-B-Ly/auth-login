@@ -4,11 +4,13 @@
     <h2>Register</h2>
     <p>Please enter your information below.</p>
 
+    {{#if msg}}
+      <p>{{msg}}</p>
+    {{/if}}
+
     <p>Are you a student or teacher / TA?</p>
     <a id="student-register-select" class="reg-option option-selected" href="#">Student</a>
     <a id="teacher-register-select" class="reg-option option-unselected" href="#">Teacher/TA</a>
-
-    {{msg}}
 
     <form id="student-register" action="/student_register" method="POST">
       <div class="form-group">
@@ -42,10 +44,23 @@
       <div class="form-group">
         <label for="l-name">Last Name</label>
         <input id="l-name" type="text" name="l_name" />
-      </div>      
+      </div>
       <div class="form-group">
         <label for="email">Email</label>
         <input id="email" type="text" name="email" />
+      </div>
+      <div class="form-group">
+        <p>What is your role?  Please select all that apply:</p>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="instructor" value="true" checked="checked">Instructor</input>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="TA" value="true">TA</input>
+          </label>
+        </div>
       </div>
       <div class="form-group">
         <label for="password">Enter a password</label>
