@@ -3,6 +3,8 @@ var handles = require('express-handlebars');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var session = require('express-session');
+var passport = require('passport');
+var passportLocal = require('passport-local');
 var PORT = process.env.NODE_ENV || 8080;
 
 // CONNECTION
@@ -13,7 +15,7 @@ var classStructure = require('./models/class_structure.js');
 
 var app = express();
 
-// Middleware
+// MIDDLEWARE - Handlebars and body-parser
 app.engine('handlebars', handles({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
@@ -21,7 +23,10 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-// Session
+// MIDDLEWARE - public
+app.use('/static', express.static('public'));
+
+// MIDDLEWARE - Session and Passport
 app.use(session({
     secret: 'ripping guitar riffs',
     resave: true,
@@ -29,8 +34,8 @@ app.use(session({
     cookie : { secure : false, maxAge : (6 * 60 * 60 * 1000) }
 }));
 
-// MIDDLEWARE - public
-app.use('/static', express.static('public'));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routing
 var routes = require('./controllers/router.js');
