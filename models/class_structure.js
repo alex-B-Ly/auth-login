@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize');
 var connection = require('../config/connection.js');
+var bcrypt = require("bcryptjs");
 
 // STUDENTS TABLE KEYS
 var students = {
@@ -105,9 +106,18 @@ var teachers = {
   }
 }
 
+// PASSWORD HOOKS
+var passHooks = {
+  hooks: {
+    beforeCreate: function(input){
+      input.password = bcrypt.hashSync(input.password, 10);
+    }
+  }
+}
+
 // TABLE CREATE
-var Students = connection.define('students', students);
-var Teachers = connection.define('teachers', teachers);
+var Students = connection.define('students', students, passHooks);
+var Teachers = connection.define('teachers', teachers, passHooks);
 
 exports.Students = Students;
 exports.Teachers = Teachers;

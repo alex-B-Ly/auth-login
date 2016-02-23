@@ -30,7 +30,6 @@ router.post('/student_register', function(req, res){
   if(password !== passConfirm){
     res.redirect('/create_account/?msg=Your password entries don\'t match.');
   }else{
-    // TODO Figure out logic to enable registration as student or teacher (maybe change action using on front end)
     classStructure.Students.create(req.body).then(function(result){
       res.redirect('/register_success');
     }).catch(function(err) {
@@ -57,8 +56,6 @@ router.post('/teacher_register', function(req, res){
     });
   }
 });
-
-// TODO Teacher register route similar to above
 
 // TODO login, register, student and teacher routes
 
