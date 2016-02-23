@@ -8,7 +8,24 @@
       <p>{{msg}}</p>
     {{/if}}
 
-    <form action="/logincheck" method="POST">
+    <h3>Student Login</h3>
+
+    <form id="studentlog" class="active" action="/logincheck" method="POST">
+      <div class="form-group">
+        <label for="email-login">Email</label>
+        <input id="email-login" type="text" name="email" />
+      </div>
+      <div class="form-group">
+        <label for="password-login">Password</label>
+        <input id="password-login" type="password" name="password" />
+      </div>
+      <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
+
+
+    <h3>Teacher Login</h3>
+
+    <form id="teacherlog" class="inactive" action="/teacherlogincheck" method="POST">
       <div class="form-group">
         <label for="email-login">Email</label>
         <input id="email-login" type="text" name="email" />

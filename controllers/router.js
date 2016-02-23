@@ -13,28 +13,57 @@ passport.use('local-login', new LocalStrategy({
   passwordField : 'password',
   passReqToCallback : true // allows us to pass back the entire request to the callback
 },
-  function(req, email, password, done) { // callback with email and password from our form
+function(req, email, password, done) { // callback with email and password from our form
 
-    // find a user whose email is the same as the forms email
-    // we are checking to see if the user trying to login already exists
-    classStructure.Students.findOne({
-      where:{
-        email:email
-      }
-    }).then(function(user){
-      if(user){
-        bcrypt.compare(password, user.dataValues.password, function(err, user) {
-          if(user){
-            done(null, { id: email, username: email });
-          }else{
-            done(null, null);
-          }
-        });
-      }else{
-        done(null, null);
-      }
-    });
-  }));
+  // find a user whose email is the same as the forms email
+  // we are checking to see if the user trying to login already exists
+  classStructure.Students.findOne({
+    where:{
+      email:email
+    }
+  }).then(function(user){
+    if(user){
+      bcrypt.compare(password, user.dataValues.password, function(err, user) {
+        if(user){
+          done(null, { id: email, username: email });
+        }else{
+          done(null, null);
+        }
+      });
+    }else{
+      done(null, null);
+    }
+  });
+}));
+
+passport.use('teacher-local-login', new LocalStrategy({
+  // by default, local strategy uses username and password, we will override with email
+  usernameField : 'email',
+  passwordField : 'password',
+  passReqToCallback : true // allows us to pass back the entire request to the callback
+},
+function(req, email, password, done) { // callback with email and password from our form
+
+  // find a user whose email is the same as the forms email
+  // we are checking to see if the user trying to login already exists
+  classStructure.Teachers.findOne({
+    where:{
+      email:email
+    }
+  }).then(function(user){
+    if(user){
+      bcrypt.compare(password, user.dataValues.password, function(err, user) {
+        if(user){
+          done(null, { id: email, username: email });
+        }else{
+          done(null, null);
+        }
+      });
+    }else{
+      done(null, null);
+    }
+  });
+}));
 
 // GET ROUTES
 router.get('/', function(req, res){
@@ -55,7 +84,11 @@ router.get('/register_success', function(req, res){
 
 router.get('/student', function(req, res){
   res.render('student');
-})
+});
+
+router.get('/teacher', function(req, res){
+  res.render('teacher');
+});
 
 // POST ROUTES
 
@@ -96,6 +129,11 @@ router.post('/teacher_register', function(req, res){
 // LOGIN ROUTES
 router.post('/logincheck', passport.authenticate('local-login',{
     successRedirect: '/student',
+    failureRedirect: '/login'
+}));
+
+router.post('/teacherlogincheck', passport.authenticate('local-login',{
+    successRedirect: '/teacher',
     failureRedirect: '/login'
 }));
 
