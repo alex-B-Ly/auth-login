@@ -1,8 +1,40 @@
 var express = require('express');
 var router = express.Router();
+var LocalStrategy = require('passport-local').Strategy;
+var passport = require('passport');
+var bcrypt = require('bcryptjs');
 
 // Students and Teachers tables import
 var classStructure = require('../models/class_structure.js');
+
+passport.use('local-login', new LocalStrategy({
+  // by default, local strategy uses username and password, we will override with email
+  usernameField : 'email',
+  passwordField : 'password',
+  passReqToCallback : true // allows us to pass back the entire request to the callback
+},
+  function(req, email, password, done) { // callback with email and password from our form
+
+    // find a user whose email is the same as the forms email
+    // we are checking to see if the user trying to login already exists
+    classStructure.Students.findOne({
+      where:{
+        email:email
+      }
+    }).then(function(user){
+      if(user){
+        bcrypt.compare(password, user.dataValues.password, function(err, user) {
+          if(user){
+            done(null, { id: email, username: email });
+          }else{
+            done(null, null);
+          }
+        });
+      }else{
+        done(null, null);
+      }
+    });
+  }));
 
 // GET ROUTES
 router.get('/', function(req, res){
@@ -20,6 +52,10 @@ router.get('/create_account', function(req, res){
 router.get('/register_success', function(req, res){
   res.render('register_success');
 });
+
+router.get('/student', function(req, res){
+  res.render('student');
+})
 
 // POST ROUTES
 
@@ -58,6 +94,9 @@ router.post('/teacher_register', function(req, res){
 });
 
 // LOGIN ROUTES
-
+router.post('/logincheck', passport.authenticate('local-login',{
+    successRedirect: '/student',
+    failureRedirect: '/login'
+}));
 
 module.exports = router;

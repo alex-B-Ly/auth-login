@@ -4,6 +4,10 @@
     <h2>Login</h2>
     <p>Please enter your login information below.</p>
 
+    {{#if msg}}
+      <p>{{msg}}</p>
+    {{/if}}
+
     <form action="/logincheck" method="POST">
       <div class="form-group">
         <label for="email-login">Email</label>
